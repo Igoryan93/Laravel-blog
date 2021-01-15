@@ -42,7 +42,7 @@
                                         </div>
                                     @elseif(Session::has('danger'))
                                         <div class="alert alert-success">
-                                            Что-то пошло не так, попробуйте еще раз
+                                           {{Session::get('danger')}}
                                         </div>
                                     @endif
                                     <form id="js-login" action="/{{Route::current()->uri}}" method="POST">

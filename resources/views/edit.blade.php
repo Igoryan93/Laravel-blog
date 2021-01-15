@@ -69,6 +69,19 @@
                                         {{$errors->first('address')}}
                                     </div>
                                 @endif
+
+                                <div class="form-group">
+                                    <label class="form-label" for="simpleinput">Вконтакте</label>
+                                    <input type="text" id="simpleinput" name="vk" class="form-control" value="{{$user->vk}}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="simpleinput">Инстаграм</label>
+                                    <input type="text" id="simpleinput" name="inst" class="form-control" value="{{$user->inst}}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="simpleinput">Телеграм</label>
+                                    <input type="text" id="simpleinput" name="tg" class="form-control" value="{{$user->tg}}">
+                                </div>
                                 <div class="col-md-12 mt-3 d-flex flex-row-reverse">
                                     <button class="btn btn-warning" type="submit">Редактировать</button>
                                 </div>

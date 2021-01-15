@@ -12,23 +12,27 @@
                 </a>
             </div>
             <div class="card p-4 border-top-left-radius-0 border-top-right-radius-0">
-                @if(Session::has('success'))
-                    <div class="alert alert-success">
-                        Авторизация прошла успешно
-                    </div>
-                @elseif(Session::has('danger'))
+                @if(Session::has('danger'))
                     <div class="alert alert-danger">
-                        Что то пошло не так, попробуйте еще раз
+                        {{Session::get('danger')}}
                     </div>
                 @elseif($errors->any())
                     <div class="alert alert-danger">
-                        Неверный E-mail или пароль
+                        @if($errors->has('email'))
+                            {{$errors->first()}}
+                        @elseif($errors->has('password'))
+                            {{$errors->first()}}
+                        @endif
+                    </div>
+                @elseif(Session::has('success'))
+                    <div class="alert alert-success">
+                        {{Session::get('success')}}
                     </div>
                 @endif
                 <form action="/{{Route::current()->uri}}" method="POST">
                     <div class="form-group">
                         <label class="form-label" for="username">Email</label>
-                        <input type="email" id="username" name="email" class="form-control" placeholder="Эл. адрес" value="">
+                        <input type="email" id="username" name="email" class="form-control" placeholder="Эл. адрес" value="{{old('email')}}">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="password">Пароль</label>
@@ -45,7 +49,7 @@
                 </form>
             </div>
             <div class="blankpage-footer text-center">
-                Нет аккаунта? <a href=""><strong>Зарегистрироваться</strong></a>
+                Нет аккаунта? <a href="/reg"><strong>Зарегистрироваться</strong></a>
             </div>
         </div>
     </div>

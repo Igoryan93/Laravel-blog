@@ -11,9 +11,6 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    public function login() {
-        return view('login');
-    }
 
     public function in(Request $request) {
         $validate = Validate::check($request, [
@@ -28,16 +25,24 @@ class AuthController extends Controller
             $user = User::where('email', $request->email)->get();
 
             if($user->isEmpty() || !Hash::check($request->password, $user->first()->password)) {
-                dd('Пользователь не найден');
+                Session::flash('danger', 'Неверный логин или пароль');
+                return back();
+            } elseif ($user->first()->verify == false) {
+                Session::flash('danger', 'У данного пользователя почта не подтверждена');
+                return back();
             }
 
             $remember = $request->remember == 'on' ?  true : false;
 
-
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)) {
-                Session::flash('success');
+                Session::flash('success', 'Вы успешно были авторизованы');
                 return redirect()->route('index');
             }
         }
+    }
+
+    public function logout() {
+        Auth::logout();
+        return redirect()->route('index');
     }
 }

@@ -6,7 +6,11 @@
             <h1 class="subheader-title">
                 <i class='subheader-icon fal fa-sun'></i> Установить статус
             </h1>
-
+            @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{Session::get('success')}}
+                </div>
+            @endif
         </div>
         <form action="/status/{{$user->user_id}}" method="POST">
             <div class="row">

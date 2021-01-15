@@ -15,11 +15,17 @@ class Validate extends Model
             'min'      => 'Поле :attribute должно иметь минимум :min символа',
             'max'      => 'Поле :attribute не должно превышать :max символа',
             'unique'   => 'Пользователь с таким :attribute уже занят',
+            'numeric'  => 'Поле :attribute должно быть в формате телефонного номера',
+            'mimes'    => 'Поле :attribute должно быть в форматах jpg, jpeg, png',
             'remember.required' => 'Пункт соглашения с правилами обязателен для заполнения'
         ];
         $renameInput = [
             'email' => 'E-mail',
             'name'  => 'Имя',
+            'job'   => 'Место работы',
+            'phone' => 'Номер телефон',
+            'address' => 'Адрес',
+            'image'   => 'Выберите аватар',
             'password'       => 'Пароль',
             'password_again' => 'Повторите пароль',
             'password_new'   => 'Новый пароль',

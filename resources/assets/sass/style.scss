@@ -1,5 +1,9 @@
 #bgvid {
+  height: 100vh;
+  width: 100%;
   position: fixed;
+  object-fit: cover;
+  object-position: center center;
   top: 0;
   left: 0;
   z-index: -1;
@@ -21,4 +25,8 @@ form {
   .alert {
     margin: 10px 0;
   }
+}
+
+#js-page-content {
+  min-height: calc(100vh - 115px);
 }
