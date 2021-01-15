@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Info;
 use App\Mail\VerifyEmail;
+use App\models\Auth;
 use App\User;
 use App\Validate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-use phpDocumentor\Reflection\Types\Nullable;
 
 class RegController extends Controller
 {

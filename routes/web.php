@@ -24,8 +24,6 @@ Route::group(['middleware' => 'guest'], function() {
 
     Route::get('/reg', 'HomeController@register')->name('reg');
     Route::post('/reg', 'RegController@create');
-
-    Route::get('/verify/{token}', 'RegController@verify')->name('verify');
 });
 
 Route::group(['middleware' => 'auth'], function() {
@@ -46,7 +44,17 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/delete/{id}', 'UserController@delete')->name('delete');
 
     Route::get('/logout', 'AuthController@logout');
+
+    Route::group([
+        'middleware' => 'admin',
+        'prefix'     => 'admin'
+    ], function() {
+        Route::get('/create', 'AdminController@create')->name('create');
+        Route::post('/post', 'AdminController@post');
+    });
 });
+
+Route::get('/verify/{token}', 'RegController@verify')->name('verify');
 
 Route::fallback(function(){
     return response()->view('errors.404', [], 404);

@@ -19,10 +19,9 @@
         @endif
         <div class="row">
             <div class="col-xl-12">
-                @if(Auth::check())
-                    <a class="btn btn-success" href="/create">Добавить</a>
+                @if(Auth::check() && Auth::user()->is_admin)
+                    <a class="btn btn-success" href="/admin/create">Добавить</a>
                 @endif
-
                 <div class="border-faded bg-faded p-3 mb-g d-flex mt-3">
                     <input type="text" id="js-filter-contacts" name="filter-contacts" class="form-control shadow-inset-2 form-control-lg" placeholder="Найти пользователя">
                     <div class="btn-group btn-group-lg btn-group-toggle hidden-lg-down ml-3" data-toggle="buttons">
@@ -36,6 +35,8 @@
                 </div>
             </div>
         </div>
+
+
         <div class="row" id="js-contacts">
             @foreach($users as $user)
                 <div class="col-xl-4">
@@ -60,13 +61,16 @@
                                 <div class="info-card-text flex-1">
                                     <a href="javascript:void(0);" class="fs-xl text-truncate text-truncate-lg text-info" data-toggle="dropdown" aria-expanded="false">
                                         {{$user->find($user->id)->info ? $user->find($user->id)->info->name : '' }}
-                                        @if(Auth::id() === $user->id)
-                                            <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
-                                            <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
+                                        @if(Auth::check())
+                                            @if(Auth::id() === $user->id ||  Auth::user()->is_admin)
+                                                <i class="fal fas fa-cog fa-fw d-inline-block ml-1 fs-md"></i>
+                                                <i class="fal fa-angle-down d-inline-block ml-1 fs-md"></i>
+                                            @endif
                                         @endif
                                     </a>
-                                    @if(Auth::id() == $user->id)
-                                        <div class="dropdown-menu">
+                                    @if(Auth::check())
+                                        @if(Auth::id() == $user->id || Auth::user()->is_admin)
+                                            <div class="dropdown-menu">
                                             <a class="dropdown-item" href="/edit/{{$user->id}}">
                                                 <i class="fa fa-edit"></i>
                                                 Редактировать</a>
@@ -85,6 +89,7 @@
                                                 Удалить
                                             </a>
                                         </div>
+                                        @endif
                                     @endif
                                     @if($user->find($user->id)->info)
                                         <span class="text-truncate text-truncate-xl">{{$user->find($user->id)->info->job}}</span>
@@ -131,7 +136,10 @@
                     </div>
                 </div>
             @endforeach
+
         </div>
+        {{ $users->links() }}
+
     </main>
 
 
