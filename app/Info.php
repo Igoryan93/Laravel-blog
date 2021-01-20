@@ -13,4 +13,13 @@ class Info extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
+
+    public static function createInfoTest($data, $id) {
+
+        $info = new self;
+        $info->fill($data);
+        $info->user_id = $id;
+
+        $info->save();
+    }
 }

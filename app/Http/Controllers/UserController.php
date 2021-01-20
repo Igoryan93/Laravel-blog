@@ -76,6 +76,7 @@ class UserController extends Controller
 
     public function media($id, Request $request) {
 
+
         if (!$request->hasFile('image')) {
             Session::flash('danger', 'Необходимо прикрепить файл');
             return back();
