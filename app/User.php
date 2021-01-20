@@ -37,4 +37,16 @@ class User extends Authenticatable
     public static function is_admin() {
         return Auth::user()->is_admin ===1 ? true : false ;
     }
+
+    public static function register($data) {
+        $user = new self;
+
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->is_admin = $data['is_admin'];
+        $user->token = $data['token'];
+        $user->token_date = $data['token_date'];
+        $user->verify = $data['verify'];
+        $user->save();
+    }
 }
